@@ -12,385 +12,250 @@
       --border: rgba(148,163,184,0.18);
       --text:#F8FAFC;
       --muted: rgba(248,250,252,0.70);
-      --accent:#355e3b; /* hunter green */
+      --accent:#355e3b;
       --pink: rgba(236,72,153,0.92);
       --shadow: 0 18px 60px rgba(0,0,0,0.55);
       --glow: 0 0 36px rgba(53,94,59,0.35);
     }
 
     *{ box-sizing:border-box; }
+
+    /* Background video layer */
+    .bgVideo{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    /* Dark overlay so text stays readable */
+    .bgOverlay{
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(1200px 800px at 20% 15%, rgba(53,94,59,0.22), transparent 60%),
+        radial-gradient(900px 600px at 80% 25%, rgba(99,102,241,0.16), transparent 60%),
+        radial-gradient(900px 700px at 60% 90%, rgba(236,72,153,0.12), transparent 60%),
+        rgba(0,0,0,0.55);
+      backdrop-filter: blur(0px);
+    }
+
     body{
       margin:0;
       min-height:100vh;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(1200px 800px at 20% 15%, rgba(53,94,59,0.18), transparent 60%),
-        radial-gradient(900px 600px at 80% 25%, rgba(99,102,241,0.14), transparent 60%),
-        radial-gradient(900px 700px at 60% 90%, rgba(236,72,153,0.10), transparent 60%),
-        var(--bg);
-      overflow-x:hidden;
+      background: var(--bg); /* fallback if video fails */
       display:flex;
       align-items:center;
       justify-content:center;
       padding: 22px;
     }
 
-    .stars{
-      position: fixed; inset:0; pointer-events:none; z-index:0;
-      opacity:0.35;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.65), transparent 60%),
-        radial-gradient(1px 1px at 120px 80px, rgba(255,255,255,0.45), transparent 60%),
-        radial-gradient(1px 1px at 260px 140px, rgba(255,255,255,0.40), transparent 60%),
-        radial-gradient(1px 1px at 400px 220px, rgba(255,255,255,0.50), transparent 60%),
-        radial-gradient(2px 2px at 520px 60px, rgba(255,255,255,0.32), transparent 60%),
-        radial-gradient(1px 1px at 700px 180px, rgba(255,255,255,0.38), transparent 60%);
-      background-size: 900px 500px;
-      animation: drift 120s linear infinite;
-    }
-    @keyframes drift{
-      from { background-position: 0 0; }
-      to   { background-position: -1400px 900px; }
-    }
-
-    .wrap{
-      position:relative;
-      z-index:1;
-      width: min(920px, 100%);
-    }
+    .wrap{ width:min(920px,100%); }
 
     .card{
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: var(--card);
-      box-shadow: var(--shadow);
+      border:1px solid var(--border);
+      border-radius:24px;
+      background:var(--card);
+      box-shadow:var(--shadow);
       backdrop-filter: blur(14px);
       overflow:hidden;
     }
 
     .top{
-      padding: 22px 22px 16px;
-      border-bottom: 1px solid rgba(148,163,184,0.14);
-      position:relative;
+      padding:22px;
+      border-bottom:1px solid rgba(148,163,184,0.14);
     }
 
     h1{
       margin:0 0 6px;
-      font-size: 30px;
-      font-weight: 780;
+      font-size:30px;
+      font-weight:780;
       letter-spacing: -0.02em;
     }
-    .sub{
-      margin:0;
-      color: var(--muted);
-      line-height:1.4;
-      max-width: 64ch;
-      font-size: 15px;
-    }
+
+    .sub{ color:var(--muted); font-size:15px; margin:0; }
 
     .badges{
       display:flex;
       gap:10px;
+      margin-top:14px;
       flex-wrap:wrap;
-      margin-top: 14px;
     }
+
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.18);
-      background: rgba(2,6,23,0.25);
-      color: rgba(248,250,252,0.85);
-      font-size: 13px;
-      white-space:nowrap;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.18);
+      background:rgba(2,6,23,0.25);
+      font-size:13px;
     }
-    .badge strong{ letter-spacing:-0.01em; }
 
     .mid{
-      padding: 18px 22px 22px;
+      padding:22px;
       display:grid;
-      grid-template-columns: 1.25fr 0.75fr;
-      gap: 14px;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:14px;
     }
-    @media (max-width: 860px){
-      .mid{ grid-template-columns: 1fr; }
+
+    @media(max-width:860px){
+      .mid{ grid-template-columns:1fr; }
     }
 
     .panel{
-      border: 1px solid rgba(148,163,184,0.16);
-      border-radius: 20px;
-      background: rgba(2,6,23,0.22);
-      padding: 16px;
+      border:1px solid rgba(148,163,184,0.16);
+      border-radius:20px;
+      background:rgba(2,6,23,0.22);
+      padding:16px;
     }
 
-    .label{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      margin-bottom: 10px;
-      color: rgba(248,250,252,0.78);
-      font-size: 13px;
-    }
-    .chip{
-      font-size: 12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.18);
-      background: rgba(17,24,39,0.28);
-      color: rgba(248,250,252,0.82);
-      white-space:nowrap;
-    }
-
-    /* Energy bar */
     .bar{
-      width:100%;
-      height: 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.18);
-      background: rgba(17,24,39,0.28);
+      height:14px;
+      border-radius:999px;
+      background:rgba(17,24,39,0.28);
       overflow:hidden;
-      box-shadow: inset 0 0 0 1px rgba(53,94,59,0.06);
+      margin-top:10px;
+      border: 1px solid rgba(148,163,184,0.14);
     }
+
     .fill{
       height:100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(53,94,59,0.95), rgba(236,72,153,0.70));
+      width:0%;
+      background:linear-gradient(90deg, rgba(53,94,59,0.95), rgba(236,72,153,0.7));
+      transition:width .4s ease;
       box-shadow: var(--glow);
-      transition: width 450ms ease;
     }
 
     .timegrid{
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 12px;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:14px;
     }
-    @media (max-width: 520px){
+
+    @media(max-width:520px){
       .timegrid{ grid-template-columns: repeat(2, 1fr); }
     }
+
     .tile{
-      border: 1px solid rgba(148,163,184,0.14);
-      border-radius: 16px;
-      background: rgba(17,24,39,0.20);
-      padding: 10px 12px;
-    }
-    .tile small{
-      display:block;
-      color: rgba(248,250,252,0.62);
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
-    .tile strong{
-      font-size: 18px;
-      letter-spacing:-0.01em;
+      border:1px solid rgba(148,163,184,0.14);
+      border-radius:16px;
+      background:rgba(17,24,39,0.20);
+      padding:10px;
+      text-align:center;
     }
 
-    .flirty{
-      margin-top: 12px;
-      color: rgba(248,250,252,0.72);
-      line-height: 1.45;
-      font-size: 14px;
-    }
+    .tile small{ color:var(--muted); display:block; }
+    .tile strong{ font-size:18px; }
 
-    /* Buttons */
-    .btnrow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 12px;
-    }
+    .btnrow{ margin-top:14px; }
+
     button{
+      padding:12px 14px;
+      border-radius:16px;
+      border:none;
+      font-size:14px;
+      font-weight:700;
       cursor:pointer;
-      border-radius: 16px;
-      border: 1px solid rgba(148,163,184,0.22);
-      background: rgba(17,24,39,0.28);
-      color: var(--text);
-      padding: 11px 13px;
-      font-size: 14px;
+      color: white;
     }
-    button.primary{
-      background: var(--accent);
-      border: none;
-      font-weight: 780;
-      box-shadow: var(--glow);
-    }
-    button.pink{
-      background: linear-gradient(90deg, rgba(236,72,153,0.88), rgba(99,102,241,0.55));
-      border: none;
-      font-weight: 780;
-      box-shadow: 0 0 30px rgba(236,72,153,0.22);
-    }
-    button:hover{ transform: translateY(-1px); }
-    button:active{ transform: translateY(0); }
 
-    /* Peek overlay (lol sike) */
+    .pink{
+      background:linear-gradient(90deg, rgba(236,72,153,0.9), rgba(99,102,241,0.55));
+      box-shadow:0 0 30px rgba(236,72,153,0.25);
+    }
+
     .overlay{
-      position: fixed;
-      inset: 0;
+      position:fixed;
+      inset:0;
       display:none;
       align-items:center;
       justify-content:center;
-      background: rgba(0,0,0,0.72);
-      backdrop-filter: blur(10px);
-      z-index: 10;
+      background:rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      z-index:10;
       padding: 18px;
     }
+
     .overlay.show{ display:flex; }
 
     .pop{
-      width: min(760px, 100%);
-      border-radius: 22px;
-      border: 1px solid rgba(148,163,184,0.18);
-      background: rgba(17,24,39,0.92);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      animation: pop 260ms ease-out;
-    }
-    @keyframes pop{
-      from { transform: translateY(10px); opacity:0; }
-      to   { transform: translateY(0); opacity:1; }
-    }
-    .popTop{
-      padding: 14px 16px;
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      gap:10px;
-      border-bottom: 1px solid rgba(148,163,184,0.12);
-    }
-    .popTop strong{ letter-spacing:-0.01em; }
-    .close{
-      border: 1px solid rgba(148,163,184,0.18);
-      background: rgba(2,6,23,0.35);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 8px 10px;
-      cursor:pointer;
-    }
-    .popBody{
-      padding: 16px;
-    }
-    .meme{
-      border: 1px solid rgba(148,163,184,0.16);
-      background: rgba(2,6,23,0.22);
-      border-radius: 18px;
-      overflow:hidden;
-    }
-    .meme img{
+      background:rgba(17,24,39,0.95);
+      border-radius:22px;
+      padding:20px;
+      max-width:600px;
       width:100%;
-      height:auto;
-      display:block;
+      text-align:center;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: var(--shadow);
     }
-    .memeText{
-      padding: 14px;
-      line-height: 1.35;
-    }
-    .memeText .big{
-      font-size: 20px;
-      font-weight: 850;
-      letter-spacing:-0.02em;
-      margin: 0 0 6px;
-    }
-    .memeText .small{
-      color: rgba(248,250,252,0.75);
-      margin:0;
-      font-size: 14px;
+
+    .pop h2{ margin: 0 0 8px; font-size: 24px; letter-spacing:-0.01em; }
+    .pop p{ margin: 0 0 14px; color: rgba(248,250,252,0.78); }
+
+    .pop button{
+      background: var(--accent);
+      box-shadow: var(--glow);
     }
 
     .signature{
-      position: fixed;
-      right: 14px;
-      bottom: 12px;
-      z-index: 2;
-      color: rgba(248,250,252,0.55);
-      font-size: 13px;
+      position:fixed;
+      right:14px;
+      bottom:12px;
+      color:rgba(248,250,252,0.55);
+      font-size:13px;
       pointer-events:none;
     }
   </style>
 </head>
 
 <body>
-  <div class="stars"></div>
+  <!-- Background video (upload bg.mp4 into the repo) -->
+  <video class="bgVideo" autoplay muted loop playsinline preload="auto">
+    <source src="bg.mp4" type="video/mp4" />
+  </video>
+  <div class="bgOverlay"></div>
 
   <div class="wrap">
     <div class="card">
       <div class="top">
         <h1>Incoming Valentine’s energy…</h1>
-        <p class="sub">
-          Hi Anis. This page is running in the background like a little love battery.
-          Do not ask questions. Just observe. 😌
-        </p>
+        <p class="sub">Charging quietly. Thinking about you loudly.</p>
 
         <div class="badges">
-          <div class="badge"><small>Status:</small> <strong id="statusText">Charging…</strong></div>
-          <div class="badge"><small>Target:</small> <strong>Valentine’s Day</strong></div>
-          <div class="badge"><small>From:</small> <strong>Paris</strong></div>
+          <div class="badge">Status: <strong id="status">Charging…</strong></div>
+          <div class="badge">Target: Valentine’s Day</div>
+          <div class="badge">Timezone: PST</div>
         </div>
       </div>
 
       <div class="mid">
-        <!-- Countdown + bar -->
         <div class="panel">
-          <div class="label">
-            <span>Gift charge level</span>
-            <span class="chip" id="chargeLabel">Calculating…</span>
-          </div>
+          <div style="opacity:0.88;">Gift charge level</div>
+          <div class="bar"><div class="fill" id="fill"></div></div>
 
-          <div class="bar" aria-label="energy bar">
-            <div class="fill" id="fill"></div>
-          </div>
-
-          <div class="timegrid" style="margin-top:14px;">
-            <div class="tile"><small>Days</small><strong id="dd">—</strong></div>
-            <div class="tile"><small>Hours</small><strong id="hh">—</strong></div>
-            <div class="tile"><small>Minutes</small><strong id="mm">—</strong></div>
-            <div class="tile"><small>Seconds</small><strong id="ss">—</strong></div>
-          </div>
-
-          <div class="flirty" id="flirtyLine">
-            If you’re reading this, you’re thinking about me. That’s cute.
+          <div class="timegrid">
+            <div class="tile"><small>Days</small><strong id="d">—</strong></div>
+            <div class="tile"><small>Hours</small><strong id="h">—</strong></div>
+            <div class="tile"><small>Minutes</small><strong id="m">—</strong></div>
+            <div class="tile"><small>Seconds</small><strong id="s">—</strong></div>
           </div>
 
           <div class="btnrow">
-            <button class="pink" id="peekBtn">Want a peek at your gift?</button>
-            <button class="primary" id="refreshBtn">Recalculate vibes</button>
-          </div>
-
-          <div class="flirty" style="opacity:0.8; margin-top:10px;">
-            (P.S. do not attempt to hack. I will know.)
+            <button class="pink" id="peek">Want a peek at your gift?</button>
           </div>
         </div>
 
-        <!-- Side panel (little fun stats) -->
         <div class="panel">
-          <div class="label">
-            <span>Diagnostics</span>
-            <span class="chip" id="tzChip">Timezone: —</span>
-          </div>
-
-          <div class="tile" style="margin-bottom:10px;">
-            <small>Current mood</small>
-            <strong id="mood">Flirty</strong>
-          </div>
-
-          <div class="tile" style="margin-bottom:10px;">
-            <small>Risk assessment</small>
-            <strong id="risk">High: you smiling</strong>
-          </div>
-
-          <div class="tile">
-            <small>Next instruction</small>
-            <strong id="next">Text me “hi”</strong>
-          </div>
-
-          <div class="flirty" style="margin-top:12px;">
-            This is a teaser site. The real reveal is coming later. Be patient. 😌
-          </div>
+          <div style="opacity:0.88; margin-bottom:8px;">Diagnostics</div>
+          <p style="margin:0 0 8px;">Current mood: <strong>Flirty</strong></p>
+          <p style="margin:0 0 8px;">Risk assessment: <strong>High (you smiling)</strong></p>
+          <p style="margin:0;">Next instruction: <strong>Text me “hi”</strong></p>
         </div>
       </div>
     </div>
@@ -398,183 +263,67 @@
 
   <div class="signature">love, Paris</div>
 
-  <!-- Peek overlay -->
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="pop" role="dialog" aria-modal="true" aria-label="Peek">
-      <div class="popTop">
-        <strong>Okay fine. Here’s your “peek.”</strong>
-        <button class="close" id="closeBtn">Close</button>
-      </div>
-      <div class="popBody">
-        <div class="meme">
-          <!-- OPTION A: Use your own meme image file (recommended)
-               Put a file named meme.jpg in the same folder as index.html
-               OR change the src to meme.png etc.
-          -->
-          <img src="meme.jpg" alt="lol sike meme" onerror="this.style.display='none'; document.getElementById('fallbackMeme').style.display='block';" />
-
-          <!-- Fallback if you don't add meme.jpg -->
-          <div class="memeText" id="fallbackMeme" style="display:none;">
-            <p class="big">LOL SIKE 😭</p>
-            <p class="small">Nice try though. You get the real gift when I say so.</p>
-          </div>
-        </div>
-
-        <div class="memeText">
-          <p class="big">You thought.</p>
-          <p class="small">Now close this and go be cute somewhere else.</p>
-        </div>
-
-        <div class="btnrow">
-          <button class="primary" id="okBtn">Okay fine 😌</button>
-          <button id="againBtn">Let me try again</button>
-        </div>
-      </div>
+  <div class="overlay" id="overlay">
+    <div class="pop">
+      <h2>LOL SIKE 😭</h2>
+      <p>You really thought.</p>
+      <button onclick="closePeek()">Okay fine 😌</button>
     </div>
   </div>
 
   <script>
-    // Target: Valentine's Day (Feb 14) in America/New_York
-    // We compute as the next Feb 14 relative to *user's* current date.
-    // If it's already past Feb 14 this year, it will count down to next year.
-    function getTargetDate(){
+    // Countdown target: next Feb 14
+    function nextValentines(){
       const now = new Date();
-      const year = now.getFullYear();
-      const targetThisYear = new Date(year, 1, 14, 0, 0, 0); // Feb is month 1 (0-based)
-      if(now > targetThisYear){
-        return new Date(year + 1, 1, 14, 0, 0, 0);
-      }
-      return targetThisYear;
+      const y = now.getFullYear();
+      const t = new Date(y, 1, 14, 0, 0, 0); // Feb 14
+      return (now > t) ? new Date(y + 1, 1, 14, 0, 0, 0) : t;
     }
 
-    const target = getTargetDate();
-    const start = new Date(target.getFullYear(), 0, 1); // Jan 1 as baseline for "charge"
+    const target = nextValentines();
     const fill = document.getElementById("fill");
-    const chargeLabel = document.getElementById("chargeLabel");
-    const statusText = document.getElementById("statusText");
-    const tzChip = document.getElementById("tzChip");
-
-    const dd = document.getElementById("dd");
-    const hh = document.getElementById("hh");
-    const mm = document.getElementById("mm");
-    const ss = document.getElementById("ss");
-
-    const flirtyLine = document.getElementById("flirtyLine");
-    const mood = document.getElementById("mood");
-    const risk = document.getElementById("risk");
-    const next = document.getElementById("next");
-
-    const overlay = document.getElementById("overlay");
-    const peekBtn = document.getElementById("peekBtn");
-    const closeBtn = document.getElementById("closeBtn");
-    const okBtn = document.getElementById("okBtn");
-    const againBtn = document.getElementById("againBtn");
-    const refreshBtn = document.getElementById("refreshBtn");
-
-    const LINES = [
-      "If you’re reading this, you’re thinking about me. That’s cute.",
-      "Patience. It builds character. 😌",
-      "Stop smiling. (Don’t.)",
-      "Be good and wait. Or be bad and wait anyway.",
-      "Your gift is charging… like my feelings. Unfortunately.",
-      "Reminder: you’re my favorite."
-    ];
-
-    function pad(n){ return String(n).padStart(2, "0"); }
+    const status = document.getElementById("status");
 
     function update(){
       const now = new Date();
       let diff = target - now;
 
       if(diff <= 0){
-        dd.textContent = "00";
-        hh.textContent = "00";
-        mm.textContent = "00";
-        ss.textContent = "00";
+        status.textContent = "READY ✨";
         fill.style.width = "100%";
-        chargeLabel.textContent = "100% charged";
-        statusText.textContent = "READY ✨";
-        flirtyLine.textContent = "Okay… you can stop refreshing. It’s time.";
-        peekBtn.textContent = "Open the real gift";
-        peekBtn.classList.remove("pink");
-        peekBtn.classList.add("primary");
-        mood.textContent = "Dangerous";
-        risk.textContent = "Extreme: you excited";
-        next.textContent = "Text me “it’s time”";
+        document.getElementById("d").textContent = "00";
+        document.getElementById("h").textContent = "00";
+        document.getElementById("m").textContent = "00";
+        document.getElementById("s").textContent = "00";
         return;
       }
 
-      const totalSec = Math.floor(diff / 1000);
-      const days = Math.floor(totalSec / (3600*24));
-      const hours = Math.floor((totalSec % (3600*24)) / 3600);
-      const minutes = Math.floor((totalSec % 3600) / 60);
-      const seconds = totalSec % 60;
+      const total = Math.floor(diff/1000);
+      const days = Math.floor(total/86400);
+      const hours = Math.floor((total%86400)/3600);
+      const mins = Math.floor((total%3600)/60);
+      const secs = total%60;
 
-      dd.textContent = pad(days);
-      hh.textContent = pad(hours);
-      mm.textContent = pad(minutes);
-      ss.textContent = pad(seconds);
+      document.getElementById("d").textContent = String(days).padStart(2,"0");
+      document.getElementById("h").textContent = String(hours).padStart(2,"0");
+      document.getElementById("m").textContent = String(mins).padStart(2,"0");
+      document.getElementById("s").textContent = String(secs).padStart(2,"0");
 
-      // Charge calculation (fun, not scientific):
-      // % is based on progress through the year up to Feb 14.
-      const span = target - start;
-      const passed = now - start;
-      let pct = Math.max(0, Math.min(1, passed / span));
-      const displayPct = Math.floor(pct * 100);
-
-      fill.style.width = displayPct + "%";
-      chargeLabel.textContent = displayPct + "% charged";
-      statusText.textContent = displayPct > 90 ? "Almost there…" : "Charging…";
-
-      // rotate flirty line occasionally
-      if(seconds % 7 === 0){
-        flirtyLine.textContent = LINES[Math.floor(Math.random()*LINES.length)];
-      }
+      // “charge” based on how close we are (60 days window)
+      const windowMs = 1000*60*60*24*60;
+      const pct = Math.max(0, Math.min(1, 1 - diff / windowMs));
+      fill.style.width = Math.floor(pct*100) + "%";
     }
 
-    function openPeek(){
-      overlay.classList.add("show");
-      overlay.setAttribute("aria-hidden","false");
-    }
-    function closePeek(){
-      overlay.classList.remove("show");
-      overlay.setAttribute("aria-hidden","true");
-    }
-
-    peekBtn.addEventListener("click", ()=>{
-      // Even when it's "ready", for now we still do the meme.
-      // Later you can swap this to your real reveal.
-      openPeek();
-    });
-
-    closeBtn.addEventListener("click", closePeek);
-    okBtn.addEventListener("click", closePeek);
-    againBtn.addEventListener("click", ()=>{
-      // little extra sass
-      document.querySelector(".popTop strong").textContent = "You are so nosy 😭";
-    });
-
-    overlay.addEventListener("click", (e)=>{
-      if(e.target === overlay) closePeek();
-    });
-
-    refreshBtn.addEventListener("click", ()=>{
-      flirtyLine.textContent = "Recalculated. Verdict: you still have to wait.";
-      mood.textContent = "Flirty";
-      risk.textContent = "High: you impatient";
-      next.textContent = "Text me “fine 🙄”";
-      update();
-    });
-
-    // Timezone chip
-    try{
-      tzChip.textContent = "Timezone: " + Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch(e){
-      tzChip.textContent = "Timezone: (unknown)";
-    }
-
-    update();
     setInterval(update, 1000);
+    update();
+
+    document.getElementById("peek").onclick = ()=> {
+      document.getElementById("overlay").classList.add("show");
+    };
+    function closePeek(){
+      document.getElementById("overlay").classList.remove("show");
+    }
   </script>
 </body>
 </html>
